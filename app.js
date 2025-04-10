@@ -5,7 +5,7 @@ const verifyToken = require('./middleware/authMiddleware');
 // Middleware to handle JSON requests
 app.use(express.json());
 app.use('/', taskRouter);
-
+app.Swagger = require('swagger-ui-express');  
 
 const PORT = 3000;
 app.listen(PORT, () => {

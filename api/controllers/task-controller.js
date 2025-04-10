@@ -3,6 +3,7 @@ const router = express.Router();
 const taskService = require('../../abl/task-service');
 // ukazka verifikace uzivatele
 const verifyToken = require('../../middleware/authMiddleware');
+const NotFoundError = 404;
 
 // test data, simulace databaze...
 let taskList = [
@@ -52,7 +53,7 @@ router.put('/tasklist/:id', async (req, res) => {
   try {
     task = await taskService.updateTask(parseInt(id), updateTask);
   } catch (error) {
-    return res.status(404).json({ message: 'Task not found' });
+    return res.status(NotFoundError).json({ message: 'Task not found' });
   }
   res.json(task);
 });
@@ -64,7 +65,7 @@ router.delete('/tasklist/:id', (req, res) => {
   try {
     taskService.deleteTask(id);
   } catch (error) {
-    return res.sendStatus(404).json({ message: 'Task not found' });
+    return res.sendStatus(NotFoundError).json({ message: 'Task not found' });
   }
   res.sendStatus(204);
 
